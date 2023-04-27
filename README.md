@@ -1,8 +1,2 @@
 # Full Stack open -kurssi kurssin osa3
-Kurssin [sivusto](https://fullstackopen.com/)
-
-```[tasklist]
-### Tehdyt tehtävät
-- [ ] osa3
-    - [ ] tehtävä 3.1 puhelinluettelon backend step1
-```
+Kurssin [sivusto](https://fullstackopen.com/) ja [repositori](https://github.com/jmkahko/fullstack) sivustolle
