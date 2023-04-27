@@ -79,6 +79,12 @@ app.post('/api/persons/', (req, res) => {
     return res.status(400).json({error: 'data missing name or number'})
   }
 
+  const findOldPerson = persons.find(person => person.name === body.name)
+
+  if (findOldPerson) {
+    return res.status(405).json({error: 'name must be unique'})
+  }
+
   const person = {
     name: body.name,
     number: body.number,
@@ -86,7 +92,7 @@ app.post('/api/persons/', (req, res) => {
   }
 
   persons = persons.concat(person)
-  
+
   res.json(person)
 })
 
