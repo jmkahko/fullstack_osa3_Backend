@@ -1,0 +1,27 @@
+{
+  "name": "fullstack_osa3_backend",
+  "version": "1.0.0",
+  "description": "Full Stack open - osa3",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmkahko/fullstack_osa3_Backend.git"
+  },
+  "author": "Janne Kähkönen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jmkahko/fullstack_osa3_Backend/issues"
+  },
+  "homepage": "https://github.com/jmkahko/fullstack_osa3_Backend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
