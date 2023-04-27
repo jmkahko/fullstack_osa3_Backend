@@ -7,32 +7,32 @@ let persons = [
   {
     "name": "Janne Kähkönen",
     "number": "050-1234567",
-    "id": 1
+    id: 1
   },
   {
     "name": "Aku Ankka",
     "number": "050-313",
-    "id": 2
+    id: 2
   },
   {
     "name": "Roope-Setä",
     "number": "050-3131",
-    "id": 3
+    id: 3
   },
   {
     "name": "Tupu",
     "number": "050-3132",
-    "id": 4
+    id: 4
   },
   {
     "name": "Hupu",
     "number": "050-3133",
-    "id": 5
+    id: 5
   },
   {
     "name": "Lupu",
     "number": "041-1234",
-    "id": 6
+    id: 6
   }
 ]
 
@@ -47,6 +47,17 @@ app.get('/info', (req, res) => {
 
 app.get('/api/persons', (req, res) => {
   res.json(persons)
+})
+
+app.get('/api/persons/:id', (req, res) => {
+  const id = Number(req.params.id)
+  const person = persons.find(person => person.id === id)
+
+  if (person) {
+    res.json(person)
+  } else {
+    res.status(404).end()
+  }
 })
 
 const PORT = 3001
