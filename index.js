@@ -40,6 +40,11 @@ app.get('/', (req, res) => {
   res.send('<h1>Full Stack open -kurssin osa3</h1>')
 })
 
+app.get('/info', (req, res) => {
+  const date = new Date()
+  res.send('Phonebook has info for ' + persons.length + ' people <br/>' + date.toDateString() + " " + date.toTimeString())
+})
+
 app.get('/api/persons', (req, res) => {
   res.json(persons)
 })
