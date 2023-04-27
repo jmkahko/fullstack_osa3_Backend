@@ -1,4 +1,5 @@
 const express = require('express')
+const { restart } = require('nodemon')
 const app = express()
 
 app.use(express.json())
@@ -65,6 +66,28 @@ app.delete('/api/persons/:id', (req, res) => {
   persons = persons.filter(person => person.id !== id)
 
   res.status(204).end()
+})
+
+const generateId = () => {
+  return Math.floor(Math.random() * 1000000000)
+}
+
+app.post('/api/persons/', (req, res) => {
+  const body = req.body
+
+  if (!body.name || !body.number) {
+    return res.status(400).json({error: 'data missing name or number'})
+  }
+
+  const person = {
+    name: body.name,
+    number: body.number,
+    id: generateId()
+  }
+
+  persons = persons.concat(person)
+  
+  res.json(person)
 })
 
 const PORT = 3001
