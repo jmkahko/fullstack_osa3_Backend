@@ -13,39 +13,6 @@ morgan.token('bodyData', function getType (res) {
 })
 app.use(morgan(':method :url :status :response-time ms :bodyData'))
 
-let persons = [
-  {
-    "name": "Janne Kähkönen",
-    "number": "050-1234567",
-    id: 1
-  },
-  {
-    "name": "Aku Ankka",
-    "number": "050-313",
-    id: 2
-  },
-  {
-    "name": "Roope-Setä",
-    "number": "050-3131",
-    id: 3
-  },
-  {
-    "name": "Tupu",
-    "number": "050-3132",
-    id: 4
-  },
-  {
-    "name": "Hupu",
-    "number": "050-3133",
-    id: 5
-  },
-  {
-    "name": "Lupu",
-    "number": "041-1234",
-    id: 6
-  }
-]
-
 app.get('/', (req, res) => {
   res.send('<h1>Full Stack open -kurssin osa3</h1>')
 })
@@ -69,15 +36,8 @@ app.get('/api/persons/:id', (req, res) => {
 })
 
 app.delete('/api/persons/:id', (req, res) => {
-  const id = Number(req.params.id)
-  persons = persons.filter(person => person.id !== id)
-
-  res.status(204).end()
+  res.status(404).json({error: 'has not been implemented'})
 })
-
-const generateId = () => {
-  return Math.floor(Math.random() * 1000000000)
-}
 
 app.post('/api/persons/', (req, res) => {
   const body = req.body
@@ -86,21 +46,14 @@ app.post('/api/persons/', (req, res) => {
     return res.status(400).json({error: 'data missing name or number'})
   }
 
-  const findOldPerson = persons.find(person => person.name === body.name)
-
-  if (findOldPerson) {
-    return res.status(405).json({error: 'name must be unique'})
-  }
-
-  const person = {
+  const personNew = new Persons({
     name: body.name,
-    number: body.number,
-    id: generateId()
-  }
+    number: body.number
+  })
 
-  persons = persons.concat(person)
-
-  res.json(person)
+  personNew.save().then(savedPerson => {
+    res.json(savedPerson)
+  })
 })
 
 const PORT = process.env.PORT || 3001
