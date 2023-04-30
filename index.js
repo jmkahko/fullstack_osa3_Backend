@@ -9,6 +9,8 @@ const errorHandler = (error, req, res, next) => {
 
   if (error.name === 'CastError') {
     return res.status(400).send({ error: error.message })
+  } else if (error.name === 'ValidationError') {
+    return res.status(400).json({ error: error.message })
   }
 
   next(error)
@@ -69,10 +71,6 @@ app.delete('/api/persons/:id', (req, res, next) => {
 
 app.post('/api/persons/', (req, res, next) => {
   const body = req.body
-
-  if (!body.name || !body.number) {
-    return res.status(400).json({error: 'data missing name or number'})
-  }
 
   const personNew = new Persons({
     name: body.name,
