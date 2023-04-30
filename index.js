@@ -25,7 +25,7 @@ app.use(express.json())
 app.use(express.static('build'))
 
 morgan.token('bodyData', function getType (res) {
-  return JSON.stringify({name: res.body.name, number: res.body.number})
+  return JSON.stringify({ name: res.body.name, number: res.body.number })
 })
 app.use(morgan(':method :url :status :response-time ms :bodyData'))
 
@@ -38,15 +38,15 @@ app.get('/info', (req, res) => {
 
   Persons.find({}).count()
     .then(count => {
-      res.send('Phonebook has info for ' + count + ' people <br/>' + date.toDateString() + " " + date.toTimeString())
+      res.send('Phonebook has info for ' + count + ' people <br/>' + date.toDateString() + ' ' + date.toTimeString())
     })
 })
 
 app.get('/api/persons', (req, res) => {
   Persons.find({})
-  .then(person => {
-    res.json(person)
-  })
+    .then(person => {
+      res.json(person)
+    })
 })
 
 app.get('/api/persons/:id', (req, res, next) => {
@@ -55,7 +55,7 @@ app.get('/api/persons/:id', (req, res, next) => {
       if (person) {
         res.json(person)
       } else {
-        response.status(404).end()
+        res.status(404).end()
       }
     })
     .catch(error => { next(error) })
@@ -63,7 +63,7 @@ app.get('/api/persons/:id', (req, res, next) => {
 
 app.delete('/api/persons/:id', (req, res, next) => {
   Persons.findByIdAndRemove(req.params.id)
-    .then(removed => {
+    .then(() => {
       res.status(204).end()
     })
     .catch(error => { next(error) })
@@ -80,7 +80,7 @@ app.post('/api/persons/', (req, res, next) => {
   personNew.save().then(savedPerson => {
     res.json(savedPerson)
   })
-  .catch(error => { next(error) })
+    .catch(error => { next(error) })
 })
 
 app.put('/api/persons/:id', (req, res, next) => {

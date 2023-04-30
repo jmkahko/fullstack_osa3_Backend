@@ -20,26 +20,26 @@ if (process.argv.length === 2) {
 
   mongoose.set('strictQuery', false)
   mongoose.connect(url)
-  
+
   const personSchema = new mongoose.Schema({
     name: String,
     number: String,
   })
-  
+
   const Persons = mongoose.model('Persons', personSchema)
-  
+
   const person = new Persons({
     name: nameParam,
     number: numberParam
   })
-  
+
   if (process.argv.length > 6) {
     person.save().then(result => {
       console.log(`added ${result.name} number ${result.number} to phonebook`)
       mongoose.connection.close()
     })
   }
-  
+
   if (process.argv.length < 6) {
     Persons.find({}).then(result => {
       console.log('phonebook:')
