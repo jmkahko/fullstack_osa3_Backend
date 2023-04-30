@@ -2,7 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
-const Persons = require('./models/persons')
+const Persons = require('./models/Persons')
 
 const errorHandler = (error, req, res, next) => {
   console.log(error)
