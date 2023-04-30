@@ -33,7 +33,11 @@ app.get('/', (req, res) => {
 
 app.get('/info', (req, res) => {
   const date = new Date()
-  res.send('Phonebook has info for ' + persons.length + ' people <br/>' + date.toDateString() + " " + date.toTimeString())
+
+  Persons.find({}).count()
+    .then(count => {
+      res.send('Phonebook has info for ' + count + ' people <br/>' + date.toDateString() + " " + date.toTimeString())
+    })
 })
 
 app.get('/api/persons', (req, res) => {
