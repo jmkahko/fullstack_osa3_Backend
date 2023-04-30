@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
+const Persons = require('./models/persons')
 
 app.use(cors())
 app.use(express.json())
@@ -55,18 +56,16 @@ app.get('/info', (req, res) => {
 })
 
 app.get('/api/persons', (req, res) => {
-  res.json(persons)
+  Persons.find({}).then(person => {
+    res.json(person)
+  })
 })
 
 app.get('/api/persons/:id', (req, res) => {
-  const id = Number(req.params.id)
-  const person = persons.find(person => person.id === id)
-
-  if (person) {
-    res.json(person)
-  } else {
-    res.status(404).end()
-  }
+  Persons.findById(req.params.id)
+    .then(person => {
+      res.json(person)
+    })
 })
 
 app.delete('/api/persons/:id', (req, res) => {
