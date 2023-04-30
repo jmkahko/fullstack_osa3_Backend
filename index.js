@@ -36,7 +36,10 @@ app.get('/api/persons/:id', (req, res) => {
 })
 
 app.delete('/api/persons/:id', (req, res) => {
-  res.status(404).json({error: 'has not been implemented'})
+  Persons.findByIdAndRemove(req.params.id)
+    .then(removed => {
+      res.status(204).end()
+    })
 })
 
 app.post('/api/persons/', (req, res) => {
