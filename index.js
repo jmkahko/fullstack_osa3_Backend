@@ -5,10 +5,10 @@ const cors = require('cors')
 const Persons = require('./models/persons')
 
 const errorHandler = (error, req, res, next) => {
-  console.log(error.message)
+  console.log(error)
 
-  if (error.message === 'CastError') {
-    return response.status(400).send({ error: 'malformatted id' })
+  if (error.name === 'CastError') {
+    return res.status(400).send({ error: error.message })
   }
 
   next(error)
@@ -79,6 +79,21 @@ app.post('/api/persons/', (req, res, next) => {
     res.json(savedPerson)
   })
   .catch(error => { next(error) })
+})
+
+app.put('/api/persons/:id', (req, res, next) => {
+  const body = req.body
+
+  const updatePerson = {
+    name: body.name,
+    number: body.number
+  }
+
+  Persons.findByIdAndUpdate(req.params.id, updatePerson, { new: true })
+    .then(updatePerson => {
+      res.json(updatePerson)
+    })
+    .catch(error => { next(error) })
 })
 
 app.use(unknownEndPoint)
